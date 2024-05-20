@@ -1,0 +1,12 @@
+.img{
+    height: 5%;
+    width: 5%;
+    border-radius: 10px
+}
+.navbar-fix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Make sure it appears above other content */
+    /* Add other styling properties as needed */
+  }
