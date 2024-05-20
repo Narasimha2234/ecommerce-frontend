@@ -3,6 +3,7 @@ import {Link,useNavigate} from"react-router-dom"
 import axios from 'axios'
 
 const Signin = (props) => {
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const {loginHandler,usertype}=props
     const currentPath = window.location.pathname;
     const targetPath = currentPath.replace('/signin','/signup');
@@ -40,7 +41,7 @@ const Signin = (props) => {
         
         if(valid){
        if(usertype){
-        axios.post(`http://localhost:8080/${usertype}/login`,details)
+        axios.post(`${apiUrl}${usertype}/login`,details)
         .then((res)=>{
            
             const token=res.data

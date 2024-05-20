@@ -4,6 +4,8 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { LineWave } from 'react-loader-spinner'
 
 const Cart = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+  
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const customerId = localStorage.getItem("customerId");
@@ -12,7 +14,7 @@ const Cart = () => {
   useEffect(() => {
     if (customerId) {
       setLoading(true);
-      axios.get(`http://localhost:8080/cart/${customerId}`)
+      axios.get(`${apiUrl}cart/${customerId}`)
         .then(response => {
           setCart(response.data);
           fetchCartDetails(response.data.cartId);
@@ -26,7 +28,7 @@ const Cart = () => {
   
   
   const fetchCartDetails = (cartId) => {
-    axios.get(`http://localhost:8080/cart/details/${cartId}`)
+    axios.get(`${apiUrl}cart/details/${cartId}`)
       .then(response => {
         setCart(prevCart => ({
           ...prevCart,
@@ -45,7 +47,7 @@ const Cart = () => {
     const detail = cart.cartDetails.find(detail => detail.cartDetailId === cartDetailId);
     if (detail && detail.productId) {
       setLoading(true);
-      axios.put(`http://localhost:8080/cart/update`, {
+      axios.put(`${apiUrl}cart/update`, {
         cartId: cart.cartId,
         productId: detail.productId,
         quantity: detail.quantity + 1
@@ -67,7 +69,7 @@ const Cart = () => {
     if (detail && detail.productId) {
       setLoading(true);
       if (detail.quantity > 1) {
-        axios.put(`http://localhost:8080/cart/update`, {
+        axios.put(`${apiUrl}/cart/update`, {
           cartId: cart.cartId,
           productId: detail.productId,
           quantity: detail.quantity - 1
@@ -90,7 +92,7 @@ const Cart = () => {
   
   const deleteCartItem = (cartDetailId) => {
     setLoading(true);
-    axios.delete(`http://localhost:8080/cart/delete/${cartDetailId}`)
+    axios.delete(`${apiUrl}/cart/delete/${cartDetailId}`)
       .then(response => {
         fetchCartDetails(cart.cartId); 
       })

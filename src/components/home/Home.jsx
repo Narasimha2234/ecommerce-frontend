@@ -4,6 +4,7 @@ import axios from 'axios'
 import { MutatingDots } from 'react-loader-spinner'
 
 const Home = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const usertype=localStorage.getItem("usertype")
   const userId=localStorage.getItem(`${usertype}Id`)
   const[products,setProducts]=useState([])
@@ -12,7 +13,7 @@ const Home = () => {
     useEffect(()=>{
       setLoading(true);
       if(usertype==="seller"){
-        axios.get(`http://localhost:8080/products/getproducts/${userId}`)
+        axios.get(`${apiUrl}products/getproducts/${userId}`)
     .then((res)=>{
       setLoading(false);
       setProducts(res.data)
@@ -22,7 +23,7 @@ const Home = () => {
     })
       }
       if(usertype==="customer"){
-        axios.get(`http://localhost:8080/products/getallproducts`)
+        axios.get(`${apiUrl}products/getallproducts`)
         .then((res)=>{
           setLoading(false);
           setProducts(res.data)
@@ -32,7 +33,7 @@ const Home = () => {
         })
       }
       if(usertype && !userId){
-        axios.get(`http://localhost:8080/products/getallproducts`)
+        axios.get(`${apiUrl}products/getallproducts`)
         .then((res)=>{
           setLoading(false);
           setProducts(res.data)

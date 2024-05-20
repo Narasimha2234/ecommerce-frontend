@@ -10,6 +10,8 @@ import HomeRouting from './components/routing/HomeRouting';
 
 
 function App() {
+  console.log('Environment Variables:', process.env); // This should log your env variables
+  console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
   const [usertype, setUserType] = useState(localStorage.getItem('usertype') || "");
   useEffect(() => {
     localStorage.setItem('usertype', usertype);

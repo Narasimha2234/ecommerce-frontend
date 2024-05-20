@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 
 const AddNewProduct = () => {
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const navigate=useNavigate();
     const usertype=localStorage.getItem("usertye")
     const userId=localStorage.getItem(`sellerId`)
@@ -70,7 +71,7 @@ const AddNewProduct = () => {
                 formData.append('productname', productDetails.productname);
                 formData.append('quantity', productDetails.quantity);
                 formData.append('status', productDetails.status); 
-               axios.post(`http://localhost:8080/products/saveProduct/${userId}`,formData, {
+               axios.post(`${apiUrl}products/saveProduct/${userId}`,formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data', 
                 },
@@ -87,7 +88,7 @@ const AddNewProduct = () => {
                                            
                      formData.append(key, productDetails[key]);             
                  });                                                                
-                 axios.put(`http://localhost:8080/products/updateProduct/${userId}/${existingProduct.id}`,formData, {
+                 axios.put(`${apiUrl}products/updateProduct/${userId}/${existingProduct.id}`,formData, {
                     headers: {
                       'Content-Type': 'multipart/form-data', 
                     },

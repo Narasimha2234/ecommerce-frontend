@@ -3,9 +3,10 @@ import Product from './Product';
 import axios from 'axios';
 
 const SmartWatch = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const[products,setProducts]=useState([])
   useEffect(()=>{
-    axios.get(`http://localhost:8080/products/get/smartwatch`)
+    axios.get(`${apiUrl}products/get/smartwatch`)
     .then((res)=>{
       setProducts(res.data)
     })

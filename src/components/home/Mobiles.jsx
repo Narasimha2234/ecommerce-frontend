@@ -3,9 +3,10 @@ import Product from './Product';
 import axios from 'axios';
 
 const Mobiles = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const[products,setProducts]=useState([])
   useEffect(()=>{
-    axios.get(`http://localhost:8080/products/get/mobiles`)
+    axios.get(`${apiUrl}products/get/mobiles`)
     .then((res)=>{
       setProducts(res.data)
     })

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import img from "./download.png";
 
 const ViewProduct = () => {
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const location = useLocation();
     const product = location.state.productDetails;
     const usertype = localStorage.getItem("usertype");
@@ -12,7 +13,7 @@ const ViewProduct = () => {
     const addToCart = async () => {
         if (usertype === "customer") {
             try {
-                const response = await axios.post('http://localhost:8080/cart/add', {
+                const response = await axios.post(`${apiUrl}cart/add`, {
                     customerId: customerId,
                     productId: product.id,
                     quantity: 1
@@ -36,7 +37,7 @@ const ViewProduct = () => {
             navigate(`/${usertype}/addproduct`,{state:{existingProduct:existingProductDetails}})
           }
           if(existingProductDetails===product.id){
-            axios.delete(`http://localhost:8080/products/deleteProduct/${customerId}/${existingProductDetails}`)  
+            axios.delete(`${apiUrl}/products/deleteProduct/${customerId}/${existingProductDetails}`)  
                   .then((res)=>{
              
                      navigate(`/seller/home`)

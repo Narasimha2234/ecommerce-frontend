@@ -8,6 +8,7 @@ import  './../../App.css';
 
 
 const Signup = (props) => {
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const {usertype}=props
     const [errorMessage,setErrorMessage]=useState("")
     const currentPath = window.location.pathname;
@@ -47,7 +48,7 @@ const Signup = (props) => {
         const valid=formValidation(details)
         if(valid){
           if(usertype){
-            axios.post(`http://localhost:8080/${usertype}/register`,details)
+            axios.post(`${apiUrl}${usertype}/register`,details)
             .then((res)=>{
                
                navigate(targetPath)
