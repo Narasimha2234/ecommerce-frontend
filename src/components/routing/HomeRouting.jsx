@@ -55,7 +55,6 @@ const HomeRouting = (props) => {
     }
     else{
       navigate("signin")
-      window.history.replaceState(null, '', '/signin');
     }
      
    }, [usertype]);

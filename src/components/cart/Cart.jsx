@@ -69,7 +69,7 @@ const Cart = () => {
     if (detail && detail.productId) {
       setLoading(true);
       if (detail.quantity > 1) {
-        axios.put(`${apiUrl}/cart/update`, {
+        axios.put(`${apiUrl}cart/update`, {
           cartId: cart.cartId,
           productId: detail.productId,
           quantity: detail.quantity - 1
@@ -92,7 +92,7 @@ const Cart = () => {
   
   const deleteCartItem = (cartDetailId) => {
     setLoading(true);
-    axios.delete(`${apiUrl}/cart/delete/${cartDetailId}`)
+    axios.delete(`${apiUrl}cart/delete/${cartDetailId}`)
       .then(response => {
         fetchCartDetails(cart.cartId); 
       })

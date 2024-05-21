@@ -37,7 +37,7 @@ const ViewProduct = () => {
             navigate(`/${usertype}/addproduct`,{state:{existingProduct:existingProductDetails}})
           }
           if(existingProductDetails===product.id){
-            axios.delete(`${apiUrl}/products/deleteProduct/${customerId}/${existingProductDetails}`)  
+            axios.delete(`${apiUrl}products/deleteProduct/${customerId}/${existingProductDetails}`)  
                   .then((res)=>{
              
                      navigate(`/seller/home`)

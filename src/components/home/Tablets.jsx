@@ -6,7 +6,7 @@ const Tablets = () => {
   const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const[products,setProducts]=useState([])
   useEffect(()=>{
-    axios.get(`${apiUrl}get/tablets`)
+    axios.get(`${apiUrl}products/get/tablets`)
     .then((res)=>{
       setProducts(res.data)
     })

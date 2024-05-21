@@ -52,10 +52,10 @@ const Nav = (props) => {
                      <Link to={"/seller"} class="btn btn-outline-success ms-5 me-3"  onClick={() => handleRoleChange("seller")} >seller</Link>
                   </div>
               )}
-              {usertype==="seller" && !isLoggedIN &&(
+              {usertype && !isLoggedIN &&(
                  <div>
-                  <Link to={"/seller/signup"} class="btn btn-outline-success" type="submit">SignUp</Link>
-                  <Link to={"/seller/signin"} class="btn btn-outline-success ms-5 " type="submit">SignIn</Link>
+                  <Link to={`/${usertype}/signup`} class="btn btn-outline-success" type="submit">SignUp</Link>
+                  <Link to={`/${usertype}/signup`} class="btn btn-outline-success ms-5 " type="submit">SignIn</Link>
                  </div>
               )}
               {usertype==="seller" && isLoggedIN &&(
@@ -70,12 +70,12 @@ const Nav = (props) => {
                   <button  class="btn btn-outline-success ms-5" onClick={()=>logoutHandler(usertype)}>LogOut</button>
                  </div>
               )}
-              {usertype==="customer" &&!isLoggedIN&&(
+              {/* {usertype==="customer" &&!isLoggedIN&&(
                 <div>
                   <Link to={"/customer/signup"} class="btn btn-outline-success" type="submit" >SignUp</Link>
                   <Link to={"/customer/signin"} class="btn btn-outline-success ms-5 " type="submit">SignIn</Link>
                 </div>
-              )}
+              )} */}
               {usertype==="customer" && isLoggedIN&&(
                 <div>
                   <Link to={"/customer/mobiles"} class={`btn btn-outline-success me-5 ${activeButton==="mobiles"?"active":""}`} onClick={()=>trackActiveButton("mobiles")} >Mobiles</Link>

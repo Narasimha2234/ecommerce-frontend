@@ -12,7 +12,7 @@ const Home = () => {
   
     useEffect(()=>{
       setLoading(true);
-      if(usertype==="seller"){
+      if(usertype==="seller" && userId){
         axios.get(`${apiUrl}products/getproducts/${userId}`)
     .then((res)=>{
       setLoading(false);
@@ -22,7 +22,7 @@ const Home = () => {
       setLoading(false);
     })
       }
-      if(usertype==="customer"){
+      if(usertype==="customer"   && userId){
         axios.get(`${apiUrl}products/getallproducts`)
         .then((res)=>{
           setLoading(false);
@@ -32,7 +32,7 @@ const Home = () => {
           setLoading(false);
         })
       }
-      if(usertype && !userId){
+      
         axios.get(`${apiUrl}products/getallproducts`)
         .then((res)=>{
           setLoading(false);
@@ -41,7 +41,7 @@ const Home = () => {
         .catch((error)=>{console.log(error)
           setLoading(false);
         })
-      }
+      
       
     },[])
    if(loading){
