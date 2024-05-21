@@ -35,7 +35,7 @@ const Nav = (props) => {
          localStorage.removeItem(`${usertype}IsLoggedIn`)
          localStorage.removeItem(`${usertype}Id`)
          navigate(`/${usertype}/signin`)
-         window.history.replaceState(null, '', '/signin');
+         
         
     }
      
