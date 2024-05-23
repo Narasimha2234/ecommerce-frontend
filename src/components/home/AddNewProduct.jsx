@@ -77,7 +77,7 @@ const AddNewProduct = () => {
                 },
               })
                .then((res)=>{
-                console.log(res.data);
+                
                 navigate("/seller/home")
                })
                .catch((error)=>console.log(error.data))
@@ -94,7 +94,7 @@ const AddNewProduct = () => {
                     },
                   })  
                   .then((res)=>{
-                    console.log(res.data);
+                    
                     navigate(`/seller/viewproduct`, { state: { productDetails: res.data } })
                    })
                    .catch((error)=>console.log(error.data))                                                           
@@ -148,7 +148,7 @@ const AddNewProduct = () => {
     }
     
   return (
-    <div className='mt-5'>
+    <div className='mt-5 nav-below'>
         <form action="" onSubmit={submitHandler} className=''>
             <table className='w-50 m-auto ' >
                  <tr>

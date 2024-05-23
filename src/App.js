@@ -7,12 +7,14 @@ import { BrowserRouter,Route,Routes } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Home from"./components/home/Home"
 import HomeRouting from './components/routing/HomeRouting';
+import DefaultHome from './components/home/DefaultHome';
 
 
 function App() {
   console.log('Environment Variables:', process.env); // This should log your env variables
   console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
   const [usertype, setUserType] = useState(localStorage.getItem('usertype') || "");
+
   useEffect(() => {
     localStorage.setItem('usertype', usertype);
   }, [usertype]);
@@ -27,8 +29,8 @@ function App() {
         <Routes >
             <Route exact path='/'element={
                   <>
-                      <Nav handleRoleChange={handleRoleChange}/>
-                      <div className='mt-5 pt-3'> <Home/></div>
+                      <Nav handleRoleChange={handleRoleChange} />
+                      <div className='mt-5 pt-3'> <DefaultHome/></div>
                   </>    
             }></Route>
             <Route path={`/${usertype}/*`} element={<HomeRouting usertype={usertype} />}></Route>  

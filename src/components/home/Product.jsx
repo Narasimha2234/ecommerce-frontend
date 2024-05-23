@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import img from"./download.png"
+import img from"./logo.avif"
 import { useNavigate } from 'react-router-dom'
 
 const Product = ({product}) => {

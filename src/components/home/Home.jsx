@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import HomeProduct from './HomeProduct'
 import axios from 'axios'
 import { MutatingDots } from 'react-loader-spinner'
+import Product from './Product'
 
-const Home = () => {
+const Home = ({search}) => {
   const apiUrl = process.env.REACT_APP_API_BASE_URL;
   const usertype=localStorage.getItem("usertype")
   const userId=localStorage.getItem(`${usertype}Id`)
   const[products,setProducts]=useState([])
+ 
   const [loading, setLoading] = useState(true);
-  
     useEffect(()=>{
       setLoading(true);
       if(usertype==="seller" && userId){
+        
         axios.get(`${apiUrl}products/getproducts/${userId}`)
     .then((res)=>{
       setLoading(false);
@@ -31,22 +33,21 @@ const Home = () => {
         .catch((error)=>{console.log(error)
           setLoading(false);
         })
-      }
-      
-        axios.get(`${apiUrl}products/getallproducts`)
-        .then((res)=>{
-          setLoading(false);
-          setProducts(res.data)
-        })
-        .catch((error)=>{console.log(error)
-          setLoading(false);
-        })
-      
-      
+      } 
     },[])
+    
+    const searchProducts = search
+    ? products.filter((product) => 
+        product.productname.toLowerCase().includes(search.toLowerCase()) ||
+        product.brandname.toLowerCase().includes(search.toLowerCase()) ||
+        product.category.toLowerCase().includes(search.toLowerCase())
+      )
+    : [];
+      
+    
    if(loading){
     return(
-      <div className=" mt-4 pt-3 d-flex justify-content-center">
+      <div className=" mt-4 pt-3 d-flex justify-content-center ">
         <MutatingDots
         visible={true}
         height="100"
@@ -61,14 +62,21 @@ const Home = () => {
     )
    }
   return(
-    <div className='d-flex flex-wrap ms-5 mt-3'>
+    <div className='d-flex flex-wrap ms-5 mt-3 nav-below'>
       
-      {products.map((each)=>{
-        return(
-            <HomeProduct product={each} usertype={usertype} key={each.id}/>
-        )
-        
-      })}
+      {
+        search? searchProducts.map((product)=>{
+            return(
+              <Product product={product} key={product.id}/>
+            )
+        }):
+        products.map((each)=>{
+          return(
+              <HomeProduct product={each} usertype={usertype} key={each.id}/>
+          )
+          
+        })
+      }
       
     </div>
   )

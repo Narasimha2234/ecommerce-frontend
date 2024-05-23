@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect, useState} from 'react'
 import { Routes,Route, useNavigate} from 'react-router-dom'
 import Signup from '../signup/Signup'
 import Signin from '../signin/Signin'
@@ -9,7 +9,7 @@ import Mobiles from '../home/Mobiles';
 import Laptops from '../home/Laptops';
 import Tablets from '../home/Tablets';
 import SmartWatch from '../home/SmartWatch';
-import Tvs from '../home/Tvs';
+
 import Home from '../home/Home'
 import ViewProduct from './../home/ViewProduct';
 import { jwtDecode } from 'jwt-decode';
@@ -21,7 +21,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const HomeRouting = (props) => {
   const{usertype}=props
-  
+  const [search,setSearch]=useState("")
   const navigate=useNavigate()
  
   const logingHandler=(token)=>{
@@ -31,6 +31,9 @@ const HomeRouting = (props) => {
     localStorage.setItem(`${usertype}Id`,decodedToken.id)
   }
   
+  const handleSearch=(value)=>{
+    setSearch(value)
+  }
 
  
   useEffect(() => {
@@ -64,8 +67,8 @@ const HomeRouting = (props) => {
  const isLoggedIN=localStorage.getItem(`${usertype}IsLoggedIn`)
 
   return (
-    <div className='nav-below'>
-       <Nav   isLoggedIN={isLoggedIN}  usertype={usertype}/>
+    <div className=''>
+       <Nav   isLoggedIN={isLoggedIN}  usertype={usertype} handleSearch={handleSearch}/>
        
         
         <Routes>
@@ -73,14 +76,13 @@ const HomeRouting = (props) => {
         
           <Route path='signup' element={<Signup usertype={usertype}/>}></Route>
           <Route path='signin'  element={<Signin usertype={usertype} loginHandler={logingHandler}/>}></Route>
-          <Route path='home' element={<Home  />}>  </Route>
+          <Route path='home' element={<Home search={search} />}>  </Route>
           <Route path='addproduct' element={<AddNewProduct />}></Route>
           <Route path='cart' element={<Cart/>}></Route>
           <Route path='mobiles' element={<Mobiles/>}></Route>
           <Route path='laptops' element={<Laptops/>}></Route>
           <Route path='tablets' element={<Tablets/>}></Route>
           <Route path='smartwatches' element={<SmartWatch/>}></Route>
-          <Route path='tvs' element={<Tvs/>}></Route>
           <Route path='viewproduct' element={<ViewProduct/>}></Route>
               
              

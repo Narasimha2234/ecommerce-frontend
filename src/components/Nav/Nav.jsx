@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import image from "../Nav/download.png"
+import image from "../Nav/logo.avif"
 import {Link, useNavigate} from "react-router-dom"
 
 
@@ -8,7 +8,7 @@ import {Link, useNavigate} from "react-router-dom"
 const Nav = (props) => {
   const navigate=useNavigate()
  
-    const{handleRoleChange,isLoggedIN,usertype}=props
+    const{handleRoleChange,handleSearch,isLoggedIN,usertype}=props
     const[activeButton,setActiveButton]=useState("all products")
     const [totalQuantity, setTotalQuantity] = useState(localStorage.getItem('cart') || 0);
 
@@ -16,13 +16,8 @@ const Nav = (props) => {
       const handleStorageChange = () => {
         setTotalQuantity(localStorage.getItem('cart') || 0);
       };
-  
-      
       window.addEventListener('cartUpdated', handleStorageChange);
-  
-      
       window.addEventListener('storage', handleStorageChange);
-  
       return () => {
         window.removeEventListener('cartUpdated', handleStorageChange);
         window.removeEventListener('storage', handleStorageChange);
@@ -45,6 +40,7 @@ const Nav = (props) => {
         <nav class="navbar navbar-fix bg-body-secondary">
         <div class="container-fluid">
             <img class="navbar-brand ms-5 img" src={image} alt=""></img>
+           {usertype && isLoggedIN &&( <input type="text" className='form-control border-2 w-50' placeholder="search" name="" id=""  onChange={(e)=>handleSearch(e.target.value)}/>)}
             <form class="d-flex" role="search">
               {!usertype &&(
                   <div>
@@ -55,39 +51,20 @@ const Nav = (props) => {
               {usertype && !isLoggedIN &&(
                  <div>
                   <Link to={`/${usertype}/signup`} class="btn btn-outline-success" type="submit">SignUp</Link>
-                  <Link to={`/${usertype}/signup`} class="btn btn-outline-success ms-5 " type="submit">SignIn</Link>
+                  <Link to={`/${usertype}/signin`} class="btn btn-outline-success ms-5 " type="submit">SignIn</Link>
                  </div>
               )}
-              {usertype==="seller" && isLoggedIN &&(
+              {usertype && isLoggedIN &&(
                  <div>
-                  <Link to={"/seller/mobiles"} class={`btn btn-outline-success me-5 ${activeButton==="mobiles"?"active":""}`} onClick={()=>trackActiveButton("mobiles")} >Mobiles</Link>
-                 <Link to={"/seller/tablets"} class={`btn btn-outline-success me-5 ${activeButton==="tablets"?"active":""}`}  onClick={()=>trackActiveButton("tablets")} >Tablets</Link>
-                  <Link to={"/seller/laptops"} class={`btn btn-outline-success me-5 ${activeButton==="laptops"?"active":""}`}  onClick={()=>trackActiveButton("laptops")} >Laptops</Link>
-                 <Link to={"/seller/smartwatches"} class={`btn btn-outline-success me-5 ${activeButton==="smartwatches"?"active":""}`}  onClick={()=>trackActiveButton("smartwatches")} >Smart Watches</Link>
-                  <Link to={"/seller/tvs"} class={`btn btn-outline-success me-5 ${activeButton==="tvs"?"active":""}`}  onClick={()=>trackActiveButton("tvs")} >TV's</Link>
-                  <Link to={"/seller/home"} class={`btn btn-outline-success me-5 ${activeButton==="all products"?"active":""}`}  onClick={()=>trackActiveButton("all products")} >Home</Link>
-                  <Link to={"/seller/addproduct"} class={`btn btn-outline-success me-5 ${activeButton==="add"?"active":""}`}  onClick={()=>trackActiveButton("add")} >Add+</Link>
-                  <button  class="btn btn-outline-success ms-5" onClick={()=>logoutHandler(usertype)}>LogOut</button>
+            
+                  
+                  <Link to={`/${usertype}/home`} class={`btn btn-outline-success me-5 ${activeButton==="all products"?"active":""}`}  onClick={()=>trackActiveButton("all products")} >Home</Link>
+                  {usertype==="seller" &&(<Link to={`/${usertype}/addproduct`} class={`btn btn-outline-success me-5 ${activeButton==="add"?"active":""}`}  onClick={()=>trackActiveButton("add")} >Add+</Link>)}
+                  {usertype==="customer"&&(<Link to={`/${usertype}/cart`} class={`btn btn-outline-success me-5 ${activeButton==="cart"?"active":""}`}  onClick={()=>trackActiveButton("cart")}>Cart {totalQuantity} </Link>)}
+                  <button  class="btn btn-outline-success " onClick={()=>logoutHandler(usertype)}>LogOut</button>
                  </div>
               )}
-              {/* {usertype==="customer" &&!isLoggedIN&&(
-                <div>
-                  <Link to={"/customer/signup"} class="btn btn-outline-success" type="submit" >SignUp</Link>
-                  <Link to={"/customer/signin"} class="btn btn-outline-success ms-5 " type="submit">SignIn</Link>
-                </div>
-              )} */}
-              {usertype==="customer" && isLoggedIN&&(
-                <div>
-                  <Link to={"/customer/mobiles"} class={`btn btn-outline-success me-5 ${activeButton==="mobiles"?"active":""}`} onClick={()=>trackActiveButton("mobiles")} >Mobiles</Link>
-                 <Link to={"/customer/tablets"} class={`btn btn-outline-success me-5 ${activeButton==="tablets"?"active":""}`}  onClick={()=>trackActiveButton("tablets")}>Tablets</Link>
-                  <Link to={"/customer/laptops"} class={`btn btn-outline-success me-5 ${activeButton==="laptops"?"active":""}`}  onClick={()=>trackActiveButton("laptops")}>Laptops</Link>
-                 <Link to={"/customer/smartwatches"} class={`btn btn-outline-success me-5 ${activeButton==="smartwatches"?"active":""}`}  onClick={()=>trackActiveButton("smartwatches")}>Smart Watches</Link>
-                  <Link to={"/customer/tvs"} class={`btn btn-outline-success me-5 ${activeButton==="tvs"?"active":""}`}  onClick={()=>trackActiveButton("tvs")}>TV's</Link>
-                  <Link to={"/customer/home"} class={`btn btn-outline-success me-5 ${activeButton==="all products"?"active":""}`}  onClick={()=>trackActiveButton("all products")} >Home</Link>
-                   <Link to={"/customer/cart"} class={`btn btn-outline-success me-5 ${activeButton==="cart"?"active":""}`}  onClick={()=>trackActiveButton("cart")}>Cart {totalQuantity} </Link>
-                   <button  class="btn btn-outline-success ms-5" onClick={()=>logoutHandler(usertype)} >LogOut</button>
-                </div>
-              )}
+              
             
             
             </form>    

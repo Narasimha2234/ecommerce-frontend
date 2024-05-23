@@ -25,7 +25,7 @@ const Cart = () => {
         });
     }
   }, [customerId]);
-  
+
   
   const fetchCartDetails = (cartId) => {
     axios.get(`${apiUrl}cart/details/${cartId}`)
@@ -130,11 +130,11 @@ const Cart = () => {
   }
 
   if (!cart || !cart.cartDetails || cart.cartDetails.length === 0) {
-    return <div className="table table-striped mt-5 pt-5 text-center">No items in cart.</div>;
+    return <div className="table table-striped mt-5 pt-5 text-center">cart is empty! add product for shopping</div>;
   }
 
   return (
-    <div className='mt-5'>
+    <div className='mt-5 nav-below'>
       <table className="table table-striped ">
       <tbody>
         {cart.cartDetails.map((detail, index) => (

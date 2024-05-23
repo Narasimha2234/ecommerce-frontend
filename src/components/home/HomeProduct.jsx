@@ -7,7 +7,7 @@ const HomeProduct = (props) => {
     const navigate=useNavigate()
     
     const handleClick=(productDetails)=>{
-      if(!isLoggedin){
+      if(!isLoggedin || !usertype){
         window.alert("login or register ")
       }else{
         

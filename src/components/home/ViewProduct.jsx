@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import img from "./download.png";
+import img from "./logo.avif";
 
 const ViewProduct = () => {
     const apiUrl = process.env.REACT_APP_API_BASE_URL;
@@ -51,7 +51,7 @@ const ViewProduct = () => {
 
 
 
-        <div className="product-container">
+        <div className="product-container ">
             <div className="product-image">
                 <img  src={`data:image/jpeg;base64,${product.image}`} alt={product.name} />
                 <div className="product-buttons">
