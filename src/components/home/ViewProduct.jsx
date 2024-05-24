@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import img from "./logo.avif";
-
+import "./ViewProduct.css"
 const ViewProduct = () => {
     const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const location = useLocation();
@@ -50,13 +50,13 @@ const ViewProduct = () => {
     return (
 
 
-
-        <div className="product-container ">
-            <div className="product-image">
-                <img  src={`data:image/jpeg;base64,${product.image}`} alt={product.name} />
-                <div className="product-buttons">
-                    <button className="add-to-cart-btn"  onClick={()=>handleButtonClick(product)}>{usertype === "customer" ? "add to cart" : "update"}</button>
-                    {usertype==="seller"&&(<button className="buy-now-btn" onClick={()=>handleButtonClick(product.id)}>Delete</button>)}
+    <div className='view'>
+        <div className="view-container">
+            <div className=" left-side">
+                <img  src={`data:image/jpeg;base64,${product.image}`} alt={product.name}  className='image'/>
+                <div className="buttons">
+                    <button className={`${usertype==="customer"?"add-to-cart":"update"}`}onClick={()=>handleButtonClick(product)}>{usertype === "customer" ? "add to cart" : "update"}</button>
+                    {usertype==="seller"&&(<button className="delete" onClick={()=>handleButtonClick(product.id)}>Delete</button>)}
                 </div>
             </div> 
             <div className="product-details">
@@ -65,8 +65,8 @@ const ViewProduct = () => {
                     <img src={img} alt="" className='assured-img'/>
                         <span className='assured-badge'>Assured</span>
                     </p>
-                    <p class='text-secondary ms-2'>Free delivery</p>
-                    <p className='ms-2'>{product.description}</p>                   
+                    <p class=''>Free delivery</p>
+                    <p className=''>{product.description}</p>                   
                 <table class='table table-borderless'>
                     <tbody>
                         <h6 className='ms-2'>details</h6>
@@ -92,13 +92,13 @@ const ViewProduct = () => {
                         </tr>
                         <tr>
                             <th scope='row'>Price</th>
-                            <td className='text-primary h6'>{product.price}</td>
+                            <td className='product-price'>{product.price}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
+        </div>
 
     );
 }
