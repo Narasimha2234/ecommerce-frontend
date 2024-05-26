@@ -3,10 +3,13 @@
     width: 3%;
     border-radius: 10px
 }
-.navbar-fix {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Make sure it appears above other content */
-    /* Add other styling properties as needed */
-  }
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px); 
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
+}

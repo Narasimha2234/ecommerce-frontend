@@ -1,15 +1,10 @@
-import React, { useEffect, useState} from 'react'
-import { Routes,Route, useNavigate} from 'react-router-dom'
+import React, { useEffect, useState,useRef} from 'react'
+import { Routes,Route, useNavigate, Navigate} from 'react-router-dom'
 import Signup from '../signup/Signup'
 import Signin from '../signin/Signin'
 import Nav from '../Nav/Nav'
 import AddNewProduct from '../home/AddNewProduct'
 import Cart from '../cart/Cart'
-import Mobiles from '../home/Mobiles';
-import Laptops from '../home/Laptops';
-import Tablets from '../home/Tablets';
-import SmartWatch from '../home/SmartWatch';
-
 import Home from '../home/Home'
 import ViewProduct from './../home/ViewProduct';
 import { jwtDecode } from 'jwt-decode';
@@ -22,6 +17,7 @@ import { jwtDecode } from 'jwt-decode';
 const HomeRouting = (props) => {
   const{usertype}=props
   const [search,setSearch]=useState("")
+  
   const navigate=useNavigate()
  
   const logingHandler=(token)=>{
@@ -48,16 +44,16 @@ const HomeRouting = (props) => {
       }
       if(decodedToken.exp<currentTime){
         localStorage.removeItem(`${usertype}IsLoggedIn`)
+        navigate(`/${usertype}/signin`)
         
+      }//else{
+      //   navigate(`/${usertype}/home`,{replace:true})
         
-      }else{
-        navigate("home")
-        
-      }
+      // }
       
     }
     else{
-      navigate("signin")
+      navigate(`/${usertype}/signin`)
     }
      
    }, [usertype]);
@@ -72,19 +68,13 @@ const HomeRouting = (props) => {
        
         
         <Routes>
-      
-        
           <Route path='signup' element={<Signup usertype={usertype}/>}></Route>
           <Route path='signin'  element={<Signin usertype={usertype} loginHandler={logingHandler}/>}></Route>
           <Route path='home' element={<Home search={search} />}>  </Route>
           <Route path='addproduct' element={<AddNewProduct />}></Route>
           <Route path='cart' element={<Cart/>}></Route>
-          <Route path='mobiles' element={<Mobiles/>}></Route>
-          <Route path='laptops' element={<Laptops/>}></Route>
-          <Route path='tablets' element={<Tablets/>}></Route>
-          <Route path='smartwatches' element={<SmartWatch/>}></Route>
           <Route path='viewproduct' element={<ViewProduct/>}></Route>
-              
+          <Route path='/' element={<Navigate to={`/${usertype}/home`} replace />} />   
              
          </Routes>
     </div>

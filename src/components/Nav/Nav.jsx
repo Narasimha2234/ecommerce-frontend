@@ -3,7 +3,7 @@ import image from "../Nav/logo.avif"
 import {Link, useNavigate} from "react-router-dom"
 
 
- import "../Nav/home.css"
+ import "./home.css"
 
 const Nav = (props) => {
   const navigate=useNavigate()
@@ -29,7 +29,7 @@ const Nav = (props) => {
     const logoutHandler=(usertype)=>{
          localStorage.removeItem(`${usertype}IsLoggedIn`)
          localStorage.removeItem(`${usertype}Id`)
-         navigate(`/${usertype}/signin`)
+         navigate(`/`,{replace:true})
          
         
     }
@@ -37,10 +37,10 @@ const Nav = (props) => {
     
   return (
     
-        <nav class="navbar navbar-fix bg-body-secondary">
-        <div class="container-fluid">
-            <img class="navbar-brand ms-5 img" src={image} alt=""></img>
-           {usertype && isLoggedIN &&( <input type="text" className='form-control border-2 w-50' placeholder="search" name="" id=""  onChange={(e)=>handleSearch(e.target.value)}/>)}
+        <nav class="navbar navbar-fix ">
+        <div class="container-fluid ">
+            <img class="navbar-brand ms-5 img" src={image} alt=""></img> <h3 className='me-5 pe-4'>𝘰𝘯𝘭𝘪𝘯𝘦 𝘴𝘩𝘰𝘱𝘱𝘪𝘯𝘨</h3>
+           {usertype && isLoggedIN &&( <input type="text" className='form-control border-2 w-50 ms-5 ' placeholder="search" name="" id=""  onChange={(e)=>handleSearch(e.target.value)}/>)}
             <form class="d-flex" role="search">
               {!usertype &&(
                   <div>
@@ -58,9 +58,9 @@ const Nav = (props) => {
                  <div>
             
                   
-                  <Link to={`/${usertype}/home`} class={`btn btn-outline-success me-5 ${activeButton==="all products"?"active":""}`}  onClick={()=>trackActiveButton("all products")} >Home</Link>
-                  {usertype==="seller" &&(<Link to={`/${usertype}/addproduct`} class={`btn btn-outline-success me-5 ${activeButton==="add"?"active":""}`}  onClick={()=>trackActiveButton("add")} >Add+</Link>)}
-                  {usertype==="customer"&&(<Link to={`/${usertype}/cart`} class={`btn btn-outline-success me-5 ${activeButton==="cart"?"active":""}`}  onClick={()=>trackActiveButton("cart")}>Cart {totalQuantity} </Link>)}
+                  <Link to={`/${usertype}/home`} class={`btn btn-outline-success me-3 ms-5  ${activeButton==="all products"?"active":""}`}  onClick={()=>trackActiveButton("all products")} >Home</Link>
+                  {usertype==="seller" &&(<Link to={`/${usertype}/addproduct`} class={`btn btn-outline-success me-3 ${activeButton==="add"?"active":""}`}  onClick={()=>trackActiveButton("add")} >Add+</Link>)}
+                  {usertype==="customer"&&(<Link to={`/${usertype}/cart`} class={`btn btn-outline-success me-3 ${activeButton==="cart"?"active":""}`}  onClick={()=>trackActiveButton("cart")}>Cart {totalQuantity} </Link>)}
                   <button  class="btn btn-outline-success " onClick={()=>logoutHandler(usertype)}>LogOut</button>
                  </div>
               )}

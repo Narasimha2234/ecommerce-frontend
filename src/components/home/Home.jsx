@@ -45,9 +45,10 @@ const Home = ({search}) => {
     : [];
       
     
+    
    if(loading){
     return(
-      <div className=" mt-4 pt-3 d-flex justify-content-center ">
+      <div className=" mt-5 pt-4 d-flex justify-content-center ">
         <MutatingDots
         visible={true}
         height="100"
@@ -69,7 +70,9 @@ const Home = ({search}) => {
             return(
               <Product product={product} key={product.id}/>
             )
-        }):
+        }): products.length===0?
+       <div className=' w-100  mt-5 d-flex justify-content-center align-content-center text-danger'> <h4>you dont have products click  <a href='/seller/addproduct' className='text-decoration-none'>here </a>to add</h4></div>
+        :
         products.map((each)=>{
           return(
               <HomeProduct product={each} usertype={usertype} key={each.id}/>

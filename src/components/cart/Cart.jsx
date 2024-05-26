@@ -135,7 +135,7 @@ const Cart = () => {
 
   return (
     <div className='mt-5 nav-below'>
-      <table className="table table-striped ">
+      <table className="table table-borderless ">
       <tbody>
         {cart.cartDetails.map((detail, index) => (
           <tr key={detail.cartDetailId}>
@@ -153,7 +153,7 @@ const Cart = () => {
               {detail.quantity}
               <button className='border-0 bg-color' onClick={() => increaseQuantity(detail.cartDetailId)}>+</button>
             </td>
-            <td className="align-middle">${(detail.productPrice * detail.quantity).toFixed(2)}</td>
+            <td className="align-middle">&#8377;{(detail.productPrice * detail.quantity).toFixed(2)}</td>
             <td className="align-middle">
               <button className='border-0 bg-color' onClick={() => deleteCartItem(detail.cartDetailId)}><MdOutlineDeleteOutline size={24}/></button>
             </td>
@@ -161,9 +161,9 @@ const Cart = () => {
         ))}
       </tbody>
       <tfoot>
-        <tr>
-          <td colSpan="4" className="align-middle">Total:</td>
-          <td className="align-middle">${totalCart.totalPrice}</td>
+        <tr className='border'>
+          <td colSpan="4" className="align-middle ">Total:</td>
+          <td className="align-middle">&#8377;{totalCart.totalPrice}</td>
           
         </tr>
       </tfoot>
