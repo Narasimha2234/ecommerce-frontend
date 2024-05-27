@@ -7,20 +7,21 @@ const ViewProduct = () => {
     const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const location = useLocation();
     const product = location.state.productDetails;
-    const usertype = localStorage.getItem("usertype");
-    const customerId = localStorage.getItem(`${usertype}Id`); 
+    const userRole = localStorage.getItem("userRole");
+    const userId = localStorage.getItem(`Id`); 
     const navigate=useNavigate();
+    console.log(userId);
     const addToCart = async () => {
-        if (usertype === "customer") {
+        if (userRole === "CUSTOMER") {
             try {
                 const response = await axios.post(`${apiUrl}cart/add`, {
-                    customerId: customerId,
+                    userId: userId,
                     productId: product.id,
                     quantity: 1
                 });
                 if (response.status === 200) {
                     
-                    navigate("/customer/cart")
+                    navigate("/cart")
                 }
             } catch (error) {
                 console.error("Error adding product to cart:", error);
@@ -30,17 +31,17 @@ const ViewProduct = () => {
     };
 
     const handleButtonClick = (existingProductDetails) => {
-        if (usertype === "customer") {
+        if (userRole === "CUSTOMER") {
             addToCart();
-        } else if (usertype === "seller") {
+        } else if (userRole === "SELLER") {
           if(existingProductDetails===product){
-            navigate(`/${usertype}/addproduct`,{state:{existingProduct:existingProductDetails}})
+            navigate(`/addproduct`,{state:{existingProduct:existingProductDetails}})
           }
           if(existingProductDetails===product.id){
-            axios.delete(`${apiUrl}products/deleteProduct/${customerId}/${existingProductDetails}`)  
+            axios.delete(`${apiUrl}products/deleteProduct/${userId}/${existingProductDetails}`)  
                   .then((res)=>{
              
-                     navigate(`/seller/home`)
+                     navigate(`/home`)
                    })
                    .catch((error)=>window.alert("this product is in customers cart can not delete it"))    
           }
@@ -55,8 +56,8 @@ const ViewProduct = () => {
             <div className=" left-side">
                 <img  src={`data:image/jpeg;base64,${product.image}`} alt={product.name}  className='image'/>
                 <div className="buttons">
-                    <button className={`${usertype==="customer"?"add-to-cart":"update"}`}onClick={()=>handleButtonClick(product)}>{usertype === "customer" ? "add to cart" : "update"}</button>
-                    {usertype==="seller"&&(<button className="delete" onClick={()=>handleButtonClick(product.id)}>Delete</button>)}
+                    <button className={`${userRole==="CUSTOMER"?"add-to-cart":"update"}`}onClick={()=>handleButtonClick(product)}>{userRole === "CUSTOMER" ? "add to cart" : "update"}</button>
+                    {userRole==="SELLER"&&(<button className="delete" onClick={()=>handleButtonClick(product.id)}>Delete</button>)}
                 </div>
             </div> 
             <div className="product-details">

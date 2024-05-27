@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
+// import { FcGoogle } from 'react-icons/fc';
+// import { FaFacebook } from 'react-icons/fa';
 import axios from 'axios';
 import './signup.css'; // Create this file to move styles there
 
@@ -16,12 +16,14 @@ const Signup = (props) => {
     const [details, setDetails] = useState({
         email: "",
         name: "",
+        role:"",
         password: ""
     });
-
+   
     const [errors, setErrors] = useState({
         email: "",
         name: "",
+        role:"",
         password: ""
     });
 
@@ -36,6 +38,10 @@ const Signup = (props) => {
             valid = false;
             newErrors.name = "Enter a valid name";
         }
+        if(details.role===""){
+            valid=false;
+            newErrors.role="select any one role"
+        }
         if (details.password === "") {
             valid = false;
             newErrors.password = "Enter a valid password";
@@ -48,15 +54,17 @@ const Signup = (props) => {
         e.preventDefault();
         const valid = formValidation(details);
         if (valid) {
-            if (usertype) {
-                axios.post(`${apiUrl}${usertype}/register`, details)
+         
+                axios.post(`${apiUrl}register`, details)
                     .then((res) => {
                         navigate(targetPath);
                     })
                     .catch((error) => {
-                        setErrorMessage(error.response.data);
+                       if(error.response.status===406){
+                        setErrorMessage(error.response.data)
+                       }
                     });
-            }
+           
         }
     };
 
@@ -78,7 +86,7 @@ const Signup = (props) => {
                                 onChange={(e) => setDetails({ ...details, [e.target.name]: e.target.value })}
                             />
                             {errors.email && <p className='error-text'>{errors.email}</p>}
-                            {errorMessage && <p className='error-text'>{errorMessage}</p>}
+                          
                         </div>
                         <div className='form-group'>
                             <label htmlFor="name">Name</label>
@@ -90,6 +98,15 @@ const Signup = (props) => {
                                 onChange={(e) => setDetails({ ...details, [e.target.name]: e.target.value })}
                             />
                             {errors.name && <p className='error-text'>{errors.name}</p>}
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor="password">Role</label>
+                           <select name="role" className='role-selector' onChange={(e)=>setDetails({...details,[e.target.name]:e.target.value})}>
+                            <option selected disabled></option>
+                            <option>CUSTOMER</option>
+                            <option>SELLER</option>
+                           </select>
+                            {errors.role && <p className='error-text'>{errors.role}</p>}
                         </div>
                         <div className='form-group'>
                             <label htmlFor="password">Password</label>
@@ -105,17 +122,18 @@ const Signup = (props) => {
                         <div className='form-group'>
                             <button className='btn-signup'>Register</button>
                         </div>
+                        {errorMessage && <p className='error-text'>{errorMessage}</p>}
                         <div className='signin-link'>
                             <p>Already have an account? <Link to={targetPath}>Sign in here</Link></p>
                         </div>
-                        <div className='social-signin'>
+                        {/* <div className='social-signin'>
                             <div className='google-signin'>
                                 <FcGoogle size={20} /> Sign in by Google
                             </div>
                             <div className='facebook-signin'>
                                 <FaFacebook size={20} /> Sign in by Facebook
                             </div>
-                        </div>
+                        </div> */}
                     </form>
                 </div>
             </div>

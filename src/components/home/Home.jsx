@@ -3,17 +3,18 @@ import HomeProduct from './HomeProduct'
 import axios from 'axios'
 import { MutatingDots } from 'react-loader-spinner'
 import Product from './Product'
+import { Link } from 'react-router-dom'
 
 const Home = ({search}) => {
   const apiUrl = process.env.REACT_APP_API_BASE_URL;
-  const usertype=localStorage.getItem("usertype")
-  const userId=localStorage.getItem(`${usertype}Id`)
+  const userRole=localStorage.getItem("userRole")
+  const userId=localStorage.getItem(`Id`)
   const[products,setProducts]=useState([])
  
   const [loading, setLoading] = useState(true);
     useEffect(()=>{
       setLoading(true);
-      if(usertype==="seller" && userId){
+      if(userRole==="SELLER" && userId){
         
         axios.get(`${apiUrl}products/getproducts/${userId}`)
     .then((res)=>{
@@ -24,7 +25,7 @@ const Home = ({search}) => {
       setLoading(false);
     })
       }
-      if(usertype==="customer"   && userId){
+      if(userRole==="CUSTOMER"   && userId){
         axios.get(`${apiUrl}products/getallproducts`)
         .then((res)=>{
           setLoading(false);
@@ -70,12 +71,12 @@ const Home = ({search}) => {
             return(
               <Product product={product} key={product.id}/>
             )
-        }): products.length===0?
-       <div className=' w-100  mt-5 d-flex justify-content-center align-content-center text-danger'> <h4>you dont have products click  <a href='/seller/addproduct' className='text-decoration-none'>here </a>to add</h4></div>
+        }): products.length===0 && userRole==="SELLER"?
+       <div className=' w-100  mt-5 d-flex justify-content-center align-content-center text-danger'> <h4>you dont have products click  <Link to='/addproduct'  className='text-decoration-none'>here </Link>to add</h4></div>
         :
         products.map((each)=>{
           return(
-              <HomeProduct product={each} usertype={usertype} key={each.id}/>
+              <HomeProduct product={each} userRole={userRole} key={each.id}/>
           )
           
         })

@@ -50,6 +50,17 @@
     border-color: #80bdff;
     outline: none;
 }
+.role-selector{
+    width: calc(100% - 10px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s; 
+}
+.role-selector:focus{
+    border-color: #80bdff;
+    outline: none;
+}
 
 .error-text {
     color: #dc3545;

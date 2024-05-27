@@ -4,8 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 105vh;
+    min-height: 100vh;
     background-color: #f0f2f5;
+    margin-top: 30px;
 }
 
 .signup-box {
@@ -43,7 +44,17 @@
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
 }
-
+.role-selector{
+    width: calc(100% - 10px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s; 
+}
+.role-selector:focus{
+    border-color: #80bdff;
+    outline: none;
+}
 .signup-form .form-group input.form-control:focus {
     border-color: #80bdff;
     outline: none;

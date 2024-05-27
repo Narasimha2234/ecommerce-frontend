@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import './HomeProduct.css'; 
 
 const HomeProduct = (props) => {
-    const { product, usertype } = props;
-    const isLoggedin = localStorage.getItem(`${usertype}IsLoggedIn`);
+    const { product, userRole } = props;
+    const isLoggedin = localStorage.getItem(`IsLoggedIn`);
     const navigate = useNavigate();
 
     const handleClick = (productDetails) => {
-        if (!isLoggedin || !usertype) {
+        if (!isLoggedin || !userRole) {
             window.alert("Please login or register");
         } else {
-            navigate(`/${usertype}/viewproduct`, { state: { productDetails: productDetails } });
+            navigate(`/viewproduct`, { state: { productDetails: productDetails } });
         }
     };
 

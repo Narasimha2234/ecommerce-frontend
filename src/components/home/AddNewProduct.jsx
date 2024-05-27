@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const AddNewProduct = () => {
     const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const navigate=useNavigate();
-    const usertype=localStorage.getItem("usertye")
-    const userId=localStorage.getItem(`sellerId`)
+    const userId=localStorage.getItem(`Id`)
     const location=useLocation()
     
     const existingProduct = location.state?.existingProduct || {};
@@ -78,7 +77,7 @@ const AddNewProduct = () => {
               })
                .then((res)=>{
                 
-                navigate("/seller/home")
+                navigate("/home")
                })
                .catch((error)=>console.log(error.data))
             
@@ -95,7 +94,7 @@ const AddNewProduct = () => {
                   })  
                   .then((res)=>{
                     
-                    navigate(`/seller/viewproduct`, { state: { productDetails: res.data } })
+                    navigate(`/viewproduct`, { state: { productDetails: res.data } })
                    })
                    .catch((error)=>console.log(error.data))                                                           
                

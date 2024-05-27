@@ -9,7 +9,7 @@ const Product = ({product}) => {
   
   const handleClick=(productDetails)=>{
     
-    navigate(`/${usertype}/viewproduct`, { state: { productDetails: productDetails } })
+    navigate(`/viewproduct`, { state: { productDetails: productDetails } })
   }
     
     const onHoverHandler=(status)=>{

@@ -8,7 +8,7 @@ const Cart = () => {
   
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
-  const customerId = localStorage.getItem("customerId");
+  const customerId = localStorage.getItem("Id");
   const [totalCart, setTotalCart] = useState({quantity: 0, totalPrice: 0});
   const[purchase,setPurchase]=useState("")
   useEffect(() => {

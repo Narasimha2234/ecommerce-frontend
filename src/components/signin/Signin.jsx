@@ -5,20 +5,22 @@ import './signin.css'; // Create this file to move styles there
 
 const Signin = (props) => {
     const apiUrl = process.env.REACT_APP_API_BASE_URL;
-    const { loginHandler, usertype } = props;
+    const { loginHandler} = props;
     const currentPath = window.location.pathname;
     const targetPath = currentPath.replace('/signin', '/signup');
-    const [invalidEmail, setInvalidEmail] = useState("");
+    const [invalidEmailorrole, setInvalidEmailorrole] = useState("");
     const [wrongPswd, setWrongPswd] = useState("");
     const navigate = useNavigate();
    
     const [details, setDetails] = useState({
         "email": "",
-        "password": ""
+        "password": "",
+        "role":""
     });
     const [errors, setErrors] = useState({
         "email": "",
-        "password": ""
+        "password": "",
+        "role":""
     });
 
     const formValidation = (details) => {
@@ -32,30 +34,39 @@ const Signin = (props) => {
             valid = false;
             newErrors.password = "Enter a valid password";
         }
+        if(!details.role){
+            valid=false;
+            newErrors.role="select any one role"
+        }
         setErrors(newErrors);
         return valid;
     };
 
     const submithandler = (e) => {
         e.preventDefault();
+        
         const valid = formValidation(details);
+        
         if (valid) {
-            if (usertype) {
-                axios.post(`${apiUrl}${usertype}/login`, details)
+            
+                axios.post(`${apiUrl}login`, details)
                     .then((res) => {
                         const token = res.data;
+                       
                         loginHandler(token);
-                        navigate(`/${usertype}/home`);
+                        navigate(`/home`);
                     })
                     .catch((err) => {
+                        
                         if (err.response.status === 401) {
                             setWrongPswd(err.response.data);
                         }
+                       
                         if (err.response.status === 404) {
-                            setInvalidEmail(err.response.data);
+                            setInvalidEmailorrole(err.response.data);
                         }
                     });
-            }
+            
         }
     };
 
@@ -72,6 +83,15 @@ const Signin = (props) => {
                 </div>
                 <div className='signin-form'>
                     <form onSubmit={submithandler}>
+                    <div className="form-group">
+                            <label htmlFor="email">Role</label>
+                           <select name="role" onChange={onChangeHandler} className='role-selector'>
+                            <option selected disabled></option>
+                            <option>CUSTOMER</option>
+                            <option>SELLER</option>
+                           </select>
+                            {errors.role && <p className='error-text'>{errors.role}</p>}
+                        </div>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input
@@ -82,7 +102,7 @@ const Signin = (props) => {
                                 onChange={onChangeHandler}
                             />
                             {errors.email && <p className='error-text'>{errors.email}</p>}
-                            {invalidEmail && <p className='error-text'>{invalidEmail}</p>}
+                           
                         </div>
                         <div className='form-group'>
                             <label htmlFor="password">Password</label>
@@ -99,6 +119,7 @@ const Signin = (props) => {
                         <div className='form-group'>
                             <button className='btn-signin'>Sign in</button>
                         </div>
+                        {invalidEmailorrole && <p className='error-text'>{invalidEmailorrole}</p>}
                         <div className='signup-link'>
                             <p>Don't have an account? <Link to={targetPath}>Sign up here</Link></p>
                         </div>

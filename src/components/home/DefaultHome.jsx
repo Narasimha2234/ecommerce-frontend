@@ -23,7 +23,7 @@ const DefaultHome = () => {
     },[])
    if(loading){
     return(
-      <div className=" mt-4 pt-3 d-flex justify-content-center">
+      <div className=" mt-5 pt-3 d-flex justify-content-center">
         <MutatingDots
         visible={true}
         height="100"
@@ -38,7 +38,7 @@ const DefaultHome = () => {
     )
    }
   return(
-    <div className='d-flex flex-wrap ms-5 mt-3'>
+    <div className='d-flex flex-wrap nav-below mt-2 ms-4'>
       
       {products.map((each)=>{
         return(
