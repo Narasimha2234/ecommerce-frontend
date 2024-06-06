@@ -16,7 +16,7 @@ const HomeProduct = (props) => {
     };
 
     return (
-        <div className='product-card' onClick={() => handleClick(product)}>
+        <div className='product-card ' onClick={() => handleClick(product)}>
             <div className='product-image-container'>
                 <img src={`data:image/jpeg;base64,${product.image}`} alt="product" className='product-image' />
             </div>
