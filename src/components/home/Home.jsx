@@ -64,7 +64,7 @@ const Home = ({search}) => {
     )
    }
   return(
-    <div className='d-flex flex-wrap  mt-3 nav-below bg-danger'>
+    <div className='d-flex flex-wrap  mt-3 nav-below '>
       
       {
         search? searchProducts.map((product)=>{

@@ -38,7 +38,7 @@ const DefaultHome = () => {
     )
    }
   return(
-    <div className='d-flex flex-wrap nav-below mt-2 ms-4'>
+    <div className='d-flex flex-wrap nav-below mt-2 '>
       
       {products.map((each)=>{
         return(
